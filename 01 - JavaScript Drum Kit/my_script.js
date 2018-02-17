@@ -1,5 +1,3 @@
-// CodePen: https://codepen.io/LepPerson/pen/QQqxme/
-
 function playSound(evt) {
 	// 依據不同的事件來取得對應的 key_code(前"keydown"後"click");
 	const KEYCODE = evt.keyCode || this.getAttribute("data-key");
@@ -22,18 +20,21 @@ const: 常數，其值指定後不能再被改變;
 僅在限定的 {} 內有效(block-scoped);
 在"陣列"中用 push 推入值，或在"物件"中用".特性名稱"存取值，都不會發生錯誤，除非是用"陣列字面值"或"物件字面值"的方式存取值;
 可用大寫區分常數與變數;
+
 詳細：https://pjchender.blogspot.tw/2017/01/const.html
 */
 
 /* 
 Element.classList: 回傳 element 的 class 值(陣列);
 後可加 .add(新增), .remove(移除), .toggle(依據 class 是否存在而新增或移除), .contains(偵測是否存在，返回 true/false);
+
 詳細：https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
 */
 
 /*
 MediaElement.currentTime: 指定播放秒數;
 MediaElement.play: 播放音檔;
+
 詳細：https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement
 */
 
@@ -44,6 +45,9 @@ e.keyCode: 偵測使用者按下按鍵的"鍵碼";
 
 /*
 template literals: 模版字符串;
+使用反引號``能保留所有換行和空行;
+${...} 可嵌入變量或任何的表達式;
+
 詳細：https://pjchender.blogspot.tw/2017/01/javascript-es6-template-literalstagged.html
 */
 
@@ -92,12 +96,16 @@ transitionend: 事件，在 css 完成 transition 後觸發;
 
 /*
 箭頭函式
+
 傳統寫法：
 var func1 = function(arg) { console.log("Hi, " + arg); };
+
 箭頭函式寫法：
 var func2 = arg => console.log("Hi, " + arg);
+
 如果沒有參數要傳，那要有"空括號"：
 var func3 = () => console.log("Hi");
+
 詳細：
 https://codepen.io/LepPerson/pen/GQyNgW?editors=1010
 https://pjchender.blogspot.tw/2017/01/es6-arrow-function.html
