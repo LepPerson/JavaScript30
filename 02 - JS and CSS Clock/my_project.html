@@ -1,0 +1,118 @@
+.clock
+	.clock-face
+		.hand.hour-hand
+		.hand.min-hand
+		.hand.sec-hand
+
+<style>
+
+html
+	background-image: url(https://vignette.wikia.nocookie.net/animal-jam-clans-1/images/f/f7/Ws_Blue_Ultimate_1280x800.jpg/revision/latest/scale-to-width-down/800?cb=20170114153830)
+	background-size: cover
+	background-position: center
+
+body
+	display: flex
+	align-items: center
+	min-height: 100vh
+	margin: 0
+
+.clock
+	width: 300px
+	height: 300px
+	border: 20px solid #28558c
+	border-radius: 50%
+	padding: 20px
+	margin: 50px auto
+	position: relative
+	background-color: rgba(#000,0.4)
+	box-shadow: 0 0 2px 4px rgba(#fff,0.1), inset 0 0 4px 2px #e5e5e5, inset 0 0 16px #000, 0 0 16px rgba(#fff,0.2)
+
+.clock-face
+	position: relative
+	width: 100%
+	height: 100%
+	&:after
+		content: ""
+		position: absolute
+		width: 16px
+		height: 16px
+		display: block
+		background-color: #dbdbdb
+		top: 50%
+		left: 50%
+		transform: translate(-50%,-50%)
+		border-radius: 50%
+		box-shadow: 0 0 10px 2px rgba(#000,0.2)
+
+.hand
+	width: 50%
+	top: 50%
+	right: 50%
+	transform: rotate(90deg)
+	transform-origin: 100% 50%
+	background-color: #28558c
+	position: absolute
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275)
+
+.hour-hand
+	width: 40%
+	height: 10px
+	border-top-left-radius: 5px
+	border-bottom-left-radius: 5px
+	transition: all 3s
+	margin-top: -5px //讓針對齊中間：margin-top: -height/2
+	box-shadow: 4px 6px 8px rgba(#fff,0.2)
+
+.min-hand
+	width: 45%
+	height: 5px
+	transition: all 1s
+	margin-top: -2.5px //讓針對齊中間：margin-top: -height/2
+	box-shadow: 4px -6px 8px rgba(#fff,0.2)
+
+.sec-hand
+	height: 2px
+	background-color: #dd2a2a
+	border-top-left-radius: 50%
+	border-bottom-left-radius: 50%
+	transition: all 0.05s
+	margin-top: -1px //讓針對齊中間：margin-top: -height/2
+	box-shadow: 4px -6px 4px rgba(#fff,0.2)
+
+</style>
+
+<script>
+const hourHand = document.querySelector(".hour-hand");
+const minHand = document.querySelector(".min-hand");
+const secHand = document.querySelector(".sec-hand");
+
+var secDeg = 0;
+var minDeg = 0;
+var hourDeg = 0;
+
+function initDate() {
+	const now = new Date();
+	const sec = now.getSeconds();
+	const min = now.getMinutes();
+	const hour = now.getHours();
+
+	secDeg = sec * (360 / 60) + 90;
+	minDeg = min * (360 / 60) + sec * (6 / 60) + 90;
+	hourDeg = hour * (360 / 12) + min * (30 / 60) + 90;
+}
+
+function updateDate() {
+	secDeg += 1 / 60 * 360;
+	minDeg += 1 / 60 / 60 * 360;
+	hourDeg += 1 / 60 / 60 * 30;
+
+	secHand.style.transform = `rotate(${secDeg}deg)`;
+	minHand.style.transform = `rotate(${minDeg}deg)`;
+	hourHand.style.transform = `rotate(${hourDeg}deg)`;
+}
+
+initDate();
+setInterval(updateDate, 1000);
+
+</script>
