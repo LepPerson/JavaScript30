@@ -1,0 +1,154 @@
+.panels
+	.panel.panel1
+		p 讓我們
+		p 一起
+		p 跳舞吧
+	.panel.panel2
+		p 放
+		p 輕鬆
+		p 嘛
+	.panel.panel3
+		p 專注
+		p 享受
+		p 當下
+	.panel.panel4
+		p 奉獻
+		p 你的
+		p 所有
+	.panel.panel5
+		p 在舞動中
+		p 活出
+		p 自己
+
+<style>
+
+html
+	box-sizing: border-box
+	background-color: #ffc600
+	font-family: "Microsoft JhengHei", sans-serif
+	font-size: 20px
+	font-weight: 200
+body
+	margin: 0
+
+// *, *:before, *:after
+	// box-sizing: inherit
+
+.panels
+	min-height: 100vh
+	overflow: hidden
+	display: flex
+
+.panel
+	transition: font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11), flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11)//, background 0.2s
+	background-color: #6b0f9c
+	color: #fff
+	text-align: center
+	box-shadow: inset 0 0 0 5px rgba(#fff, 0.1)
+	font-size: 20px
+	background-size: cover
+	background-position: center
+	cursor: pointer
+	flex: 1
+	display: flex
+	flex-direction: column
+	// justify-content: center
+	// align-items: center
+	& > *
+		transition: transform 0.5s 0.7s
+		margin: 0
+		width: 100%
+		flex: 1 0 auto
+		/* 讓 p 為 container，文字為 item，以此來達到讓文字垂直置中 */
+		display: flex
+		justify-content: center
+		align-items: center
+	& p
+		text-shadow: 0 0 4px rgba(#000, 0.72), 0 0 14px rgba(#000, 0.45)
+		font-size: 1em
+		user-select: none
+		&:nth-child(2)
+			font-size: 2em
+	&.open
+		font-size: 40px
+		flex: 5
+		& > *:first-child
+			transform: translateY(0)
+		& > *:last-child
+			transform: translateY(0)
+	& > *:first-child
+		transform: translateY(-100%)
+	// &.open-active > *:first-child
+		// transform: translateY(0)
+	& > *:last-child
+		transform: translateY(100%)
+	// &.open-active > *:last-child
+		// transform: translateY(0)
+
+.panel1
+	background-image: url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500)
+.panel2
+	background-image: url(https://source.unsplash.com/rFKUFzjPYiQ/1500x1500)
+.panel3
+	background-image: url(https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d)
+.panel4
+	background-image: url(https://source.unsplash.com/ITjiVXcwVng/1500x1500)
+.panel5
+	background-image: url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500)
+
+</style>
+
+<script>
+
+/*
+原答案若連按兩下，會發生問題，即字、圖不會變大，上下字卻滑了進來;
+所以改成都用 "open" 這個 class，並讓上下字延遲 0.7s 進來;
+*/
+
+const panels = document.querySelectorAll(".panel");
+
+/*
+Element.classList: a read-only property which returns a live **DOMTokenList** collection of the class attributes of the element;
+方法：add(), remove(), toggle(), contains(), replace();
+特性：.length, .value;
+詳細：https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+
+DOMTokenList: represents a set of space-separated tokens;
+詳細：https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList
+*/
+
+/*
+嘗試當展開某一區塊，就關閉其它展開的區塊;
+*/
+// let lastClickPanel = document.querySelector(".panels");
+
+function toggleOpen() {
+	/*
+	每次都檢查這次點擊的 element 與上次點擊的 element 是不是相同的;
+  若不相同，則把上次點擊的 element 移除類別 "open";
+  再把 lastClickPanel 指向為這次點擊的 elment;
+	*/
+	// if (this !== lastClickPanel) {
+	// 	console.log(this);
+	// 	lastClickPanel.classList.remove("open");
+	// 	lastClickPanel = this;
+	// }
+	
+	this.classList.toggle("open");
+}
+
+/*
+flex 的 transitionend 事件的 propertyName 在 Safari 是 flex，在 Chrome、FF 則是 flex-grow，所以用字串中有無 "flex" 來判斷;
+*/
+// function toggleActive(e) {
+// 	console.log(e.propertyName);
+// 	if (e.propertyName.includes("flex")) {
+// 		this.classList.toggle("open-active");
+// 	}
+// }
+
+panels.forEach(panel => panel.addEventListener("click", toggleOpen));
+
+// panels.forEach(panel => panel.addEventListener("transitionend", toggleActive));
+
+</script>
